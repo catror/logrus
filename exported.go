@@ -27,8 +27,8 @@ func SetFormatter(formatter Formatter) {
 
 // SetReportCaller sets whether the standard logger will include the calling
 // method as a field.
-func SetReportCaller(include bool) {
-	std.SetReportCaller(include)
+func SetReportCaller(include bool, callerDepth int) {
+	std.SetReportCaller(include, callerDepth)
 }
 
 // SetLevel sets the standard logger level.

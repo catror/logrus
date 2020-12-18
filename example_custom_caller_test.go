@@ -11,7 +11,7 @@ import (
 
 func ExampleJSONFormatter_CallerPrettyfier() {
 	l := logrus.New()
-	l.SetReportCaller(true)
+	l.SetReportCaller(true, 0)
 	l.Out = os.Stdout
 	l.Formatter = &logrus.JSONFormatter{
 		DisableTimestamp: true,

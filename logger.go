@@ -12,7 +12,7 @@ import (
 // LogFunction For big messages, it can be more efficient to pass a function
 // and only call it if the log level is actually enables rather than
 // generating the log message and then checking if the level is enabled
-type LogFunction func()[]interface{}
+type LogFunction func() []interface{}
 
 type Logger struct {
 	// The logs are `io.Copy`'d to this in a mutex. It's common to set this to a
@@ -33,6 +33,9 @@ type Logger struct {
 
 	// Flag for whether to log caller info (off by default)
 	ReportCaller bool
+
+	// Flag for caller depth
+	CallerDepth int
 
 	// The logging level the logger should log at. This is typically (and defaults
 	// to) `logrus.Info`, which allows Info(), Warn(), Error() and Fatal() to be
@@ -89,6 +92,7 @@ func New() *Logger {
 		Level:        InfoLevel,
 		ExitFunc:     os.Exit,
 		ReportCaller: false,
+		CallerDepth:  0,
 	}
 }
 
@@ -388,10 +392,11 @@ func (logger *Logger) SetOutput(output io.Writer) {
 	logger.Out = output
 }
 
-func (logger *Logger) SetReportCaller(reportCaller bool) {
+func (logger *Logger) SetReportCaller(reportCaller bool, callerDepth int) {
 	logger.mu.Lock()
 	defer logger.mu.Unlock()
 	logger.ReportCaller = reportCaller
+	logger.CallerDepth = callerDepth
 }
 
 // ReplaceHooks replaces the logger hooks and returns the old ones

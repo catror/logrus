@@ -270,7 +270,7 @@ func TestEntryReportCallerRace(t *testing.T) {
 	logger := New()
 	entry := NewEntry(logger)
 	go func() {
-		logger.SetReportCaller(true)
+		logger.SetReportCaller(true, 0)
 	}()
 	go func() {
 		entry.Info("should not race")
