@@ -14,8 +14,8 @@ import (
 	"io/ioutil"
 	"os"
 
-	log "github.com/sirupsen/logrus"
-	"github.com/sirupsen/logrus/hooks/writer"
+	log "github.com/catror/logrus"
+	"github.com/catror/logrus/hooks/writer"
 )
 
 func main() {
